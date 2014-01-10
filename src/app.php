@@ -83,7 +83,8 @@ if (isset($app['assetic.enabled']) && $app['assetic.enabled']) {
 
     $app['assetic.filter_manager'] = $app->share(
         $app->extend('assetic.filter_manager', function($fm, $app) {
-            $fm->set('lessphp', new Assetic\Filter\LessphpFilter());
+           // $fm->set('lessphp', new Assetic\Filter\LessphpFilter());
+            $fm->set('compass', new Assetic\Filter\CompassFilter("compass"));
 
             return $fm;
         })
@@ -94,7 +95,8 @@ if (isset($app['assetic.enabled']) && $app['assetic.enabled']) {
             $am->set('styles', new Assetic\Asset\AssetCache(
                 new Assetic\Asset\GlobAsset(
                     $app['assetic.input.path_to_css'],
-                    array($app['assetic.filter_manager']->get('lessphp'))
+                    //array($app['assetic.filter_manager']->get('lessphp'))
+                    array($app['assetic.filter_manager']->get('compass'))
                 ),
                 new Assetic\Cache\FilesystemCache($app['assetic.path_to_cache'])
             ));
@@ -109,6 +111,18 @@ if (isset($app['assetic.enabled']) && $app['assetic.enabled']) {
             return $am;
         })
     );
+
+    $fm = $app['assetic.filter_manager'];
+    $fm->get('compass')->setImagesDir(__DIR__.'/../resources/img');
+    $fm->get('compass')->setGeneratedImagesPath(__DIR__.'/../web/img');
+    $fm->get('compass')->setJavascriptsDir(__DIR__.'/../resources/asset/js');
+    $fm->get('compass')->setFontsDir(__DIR__.'/resources/fonts');
+    $fm->get('compass')->setHttpPath(__DIR__.'/../web');
+    $fm->get('compass')->setHttpGeneratedImagesPath(__DIR__.'/../web/img');
+    $fm->get('compass')->setHttpJavascriptsPath(__DIR__.'/../web/assets/js');
+    $fm->get('compass')->setScss('scss');
+    $fm->get('compass')->addLoadPath(__DIR__.'/../resources/assets/scss');
+
 
 }
 
