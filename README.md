@@ -1,7 +1,7 @@
-Silex - Kitchen Sink Edition with FOundation
+Silex - Kitchen Sink Edition with Foundation
 ============================
 
-This project is adding FOundation features to the Silex KSE starter.
+This project is adding Foundation features to the Silex KSE starter.
 You can use it for your next php application.
 
 For more informations, see the
