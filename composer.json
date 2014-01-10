@@ -29,6 +29,7 @@
         "symfony/yaml"          : "~2.3",
         "twig/twig"             : "~1.10",
         "silex/web-profiler"    : "~1.0.1",
+        "zurb/foundation"       : "5.0.2",
         "twitter/bootstrap"     : "2.3.2"
     },
     "require-dev": {
