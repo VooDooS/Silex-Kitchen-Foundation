@@ -1,0 +1,45 @@
+<!-- Header and Nav -->
+<nav class="top-bar" data-topbar>
+    <ul class="title-area">
+        <!-- Title Area -->
+        <li class="name">
+            <h1>
+                <a href="{{ path('homepage') }}">
+                    {{ 'Silex Kitchen Sink Fundation Edition'|trans }}
+                </a>
+            </h1>
+        </li>
+        <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+    </ul>
+
+    <section class="top-bar-section">
+        <!-- Left Nav Section -->
+        <ul class="left">
+            <li class="divider"></li>
+            <li {% if 'homepage' == active %}class="active"{% endif %}><a href="{{ path('homepage') }}">{{ 'Homepage'|trans }}</a></li>
+            <li {% if 'page_with_cache' == active %}class="active"{% endif %}><a href="{{ path('page_with_cache') }}">Cache sample</a></li>
+            <li {% if 'form' == active %}class="active"{% endif %}><a href="{{ path('form') }}">Form sample</a></li>
+            <li {% if 'doctrine' == active %}class="active"{% endif %}><a href="{{ path('doctrine') }}">Doctrine</a></li>
+        </ul>
+
+        <!-- Right Nav Section -->
+        <ul class="right">
+            <li class="has-dropdown">
+                    <a href="#">
+                        Account <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown">
+                        {% if is_granted('ROLE_USER') %}
+                            <li><a href="{{ path('logout') }}">{{ 'Logout'|trans }}</a></li>
+                        {% else %}
+                            <li><a href="{{ path('login') }}">{{ 'Login'|trans }}</a></li>
+                            <li><a href="#">{{ 'Register'|trans }}</a></li>
+                        {% endif %}
+                    </ul>
+            </li>
+        </ul>
+    </section>
+</nav>
+
+
+<!-- End Header and Nav -->
