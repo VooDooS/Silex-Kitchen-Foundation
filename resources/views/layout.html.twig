@@ -16,6 +16,9 @@
 
     <!-- CSS -->
     {% include "assets/styles.html.twig" %}
+
+    <!-- Modernizr -->
+    <script src="../../vendor/zurb/foundation/js/vendor/custom.modernizr.js"></script>
 </head>
 <body>
 <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
@@ -26,23 +29,51 @@
     {% include "components/navbar.html.twig" %}
 
 
-    <div class="container">
-        <div id="main" role="main" class="container">
-            {% set alertTypeAvaillable = [ 'info', 'success', 'warning', 'error'] %}
-            {% for alert in alertTypeAvaillable %}
-                {% for message in app.session.getFlashBag.get(alert) %}
-                    <div class="alert alert-{{ alert }}" >
-                        <button class="close" data-dismiss="alert">×</button>
-                        {{ message|trans }}
-                    </div>
-                {% endfor %}
-            {% endfor %}
-            {% block content %}
-            {% endblock %}
-        </div>
-    </div>
+<div class="off-canvas-wrap">
+    <div class="inner-wrap">
+        <nav class="tab-bar show-for-small">
+            <a class="left-off-canvas-toggle menu-icon">
+                <span>Silex Kitchen</span>
+            </a>
+        </nav>
+        <aside class="left-off-canvas-menu">
 
+            <ul class="off-canvas-list">
+                <li><label class="first">Menu</label></li>
+            </ul>
+
+            <hr>
+
+            <ul class="off-canvas-list">
+                <li {% if 'homepage' == active %}class="active"{% endif %}><a href="{{ path('homepage') }}">{{ 'Homepage'|trans }}</a></li>
+                <li {% if 'page_with_cache' == active %}class="active"{% endif %}><a href="{{ path('page_with_cache') }}">Cache sample</a></li>
+                <li {% if 'form' == active %}class="active"{% endif %}><a href="{{ path('form') }}">Form sample</a></li>
+                <li {% if 'doctrine' == active %}class="active"{% endif %}><a href="{{ path('doctrine') }}">Doctrine</a></li>
+            </ul>
+        </aside>
+
+        <section class="main-section">
+            <div class="row">
+                <div class="large-12 columns">
+                    {% set alertTypeAvaillable = [ 'info', 'success', 'warning', 'error'] %}
+                    {% for alert in alertTypeAvaillable %}
+                        {% for message in app.session.getFlashBag.get(alert) %}
+                            <div data-alert class="alert-box {{ alert }}" >
+                                {{ message|trans }}
+                                <a href="#" class="close">&times;</a>
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                    {% block content %}
+                    {%  endblock %}
+                </div>
+            </div>
+        </section>
+
+        <a class="exit-off-canvas" href="#"></a>
+    </div>
+</div>
     <!-- JAVASCRIPT -->
-    {% include "assets/styles.html.twig" %}
+    {% include "assets/scripts.html.twig" %}
 </body>
 </html>

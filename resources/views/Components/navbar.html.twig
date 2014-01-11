@@ -1,5 +1,5 @@
 <!-- Header and Nav -->
-<nav class="top-bar" data-topbar>
+<nav class="top-bar docs-bar hide-for-small" data-topbar>
     <ul class="title-area">
         <!-- Title Area -->
         <li class="name">
@@ -15,7 +15,6 @@
     <section class="top-bar-section">
         <!-- Left Nav Section -->
         <ul class="left">
-            <li class="divider"></li>
             <li {% if 'homepage' == active %}class="active"{% endif %}><a href="{{ path('homepage') }}">{{ 'Homepage'|trans }}</a></li>
             <li {% if 'page_with_cache' == active %}class="active"{% endif %}><a href="{{ path('page_with_cache') }}">Cache sample</a></li>
             <li {% if 'form' == active %}class="active"{% endif %}><a href="{{ path('form') }}">Form sample</a></li>
@@ -26,7 +25,7 @@
         <ul class="right">
             <li class="has-dropdown">
                     <a href="#">
-                        Account <b class="caret"></b>
+                        Account
                     </a>
                     <ul class="dropdown">
                         {% if is_granted('ROLE_USER') %}

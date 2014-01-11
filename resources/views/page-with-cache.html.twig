@@ -4,18 +4,14 @@
 {% block content %}
 
     {% if app.debug %}
-        <div class="alert alert-error" >
-            <button class="close" data-dismiss="alert">×</button>
-            <p>
+        <div data-alert class="alert-box error" >
                 <h4>
                     Wrong front controller.
                 </h4>
                 Your are running the <pre>index_dev.php</pre> front
                 controller, please run <pre>index.php</pre> front
                 crontoller.
-            </p>
-        </div>
-        <div class="alert-message block-message error">
+            <a href="#" class="close">&times;</a>
         </div>
     {% endif %}
 
