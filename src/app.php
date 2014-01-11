@@ -85,6 +85,13 @@ if (isset($app['assetic.enabled']) && $app['assetic.enabled']) {
         $app->extend('assetic.filter_manager', function($fm, $app) {
            // $fm->set('lessphp', new Assetic\Filter\LessphpFilter());
             $fm->set('compass', new Assetic\Filter\CompassFilter("compass"));
+            $fm->set('yui_css', new Assetic\Filter\Yui\CssCompressorFilter(
+                '/usr/share/yui-compressor/yui-compressor.jar'
+            ));
+            $fm->set('yui_js', new Assetic\Filter\Yui\JsCompressorFilter(
+                '/usr/share/yui-compressor/yui-compressor.jar'
+            ));
+
 
             return $fm;
         })
