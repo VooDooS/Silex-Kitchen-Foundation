@@ -1,27 +1,31 @@
 {% extends 'layout.html.twig' %}
-{% set active = 'account' %}
+{% set active = 'login' %}
 
 {% block content %}
 
     <div class="row">
         <div class="small-centered medium-5 columns">
-            <h1>{{ 'Login'|trans }}</h1>
-
-            {% if error %}alert-box error radius
-                <div data-alert class="">
-                    {{ error }}
-                </div>
-                <div data-alert class="alert-box info radius">
-                    <strong>Hint:</strong> Try <code>username</code>/<code>password</code>
-                </div>
-
+            {% if error %}
+            <div data-alert class="alert-box error">
+                {{ error }}
+                <strong>Hint:</strong> Try <code>username</code>/<code>password</code>
+            </div>
             {% endif %}
-            <form action="{{ path('login_check') }}" method="post" novalidate {{ form_enctype(form) }}>
-                {{ form_widget(form) }}
-                <div>
-                    <button type="submit" class="button radius">{{ 'Send'|trans }}</button>
-                </div>
-            </form>
+
+
+            {% if is_granted('ROLE_USER') %}
+                <h1>{{ 'ConnectOk'|trans }}</h1>
+            {% else %}
+
+                <h1>{{ 'Login'|trans }}</h1>
+
+                <form action="{{ path('login_check') }}" method="post" novalidate {{ form_enctype(form) }}>
+                    {{ form_widget(form) }}
+                    <div>
+                        <button type="submit" class="button radius">{{ 'Send'|trans }}</button>
+                    </div>
+                </form>
+            {% endif %}
         </div>
     </div>
 

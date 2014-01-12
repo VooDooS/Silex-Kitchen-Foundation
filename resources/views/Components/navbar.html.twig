@@ -23,22 +23,19 @@
 
         <!-- Right Nav Section -->
         <ul class="right">
-            <li class="has-dropdown">
+            {% if is_granted('ROLE_USER') %}
+                <li class="has-dropdown">
                     <a href="#">
-                        Account
+                        {{ app.security.token.username }}
                     </a>
                     <ul class="dropdown">
-                        {% if is_granted('ROLE_USER') %}
-                            <li><a href="{{ path('logout') }}">{{ 'Logout'|trans }}</a></li>
-                        {% else %}
-                            <li><a href="{{ path('login') }}">{{ 'Login'|trans }}</a></li>
-                            <li><a href="#">{{ 'Register'|trans }}</a></li>
-                        {% endif %}
+                        <li><a href="{{ path('logout') }}">{{ 'Logout'|trans }}</a></li>
                     </ul>
-            </li>
+                </li>
+            {% else %}
+                <li {% if 'login' == active %}class="active"{% endif %}><a href="{{ path('login') }}">{{ 'Login'|trans }}</a></li>
+            {% endif %}
         </ul>
     </section>
 </nav>
-
-
 <!-- End Header and Nav -->
