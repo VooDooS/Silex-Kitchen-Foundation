@@ -4,7 +4,7 @@
 
 {% block form %}
 {% spaceless %}
-    {{ form_start(form, {attr: {class: 'form-horizontal', novalidate: 'novalidate'}}) }}
+    {{ form_start(form, {attr: {}}) }}
         {{ form_widget(form) }}
     {{ form_end(form) }}
 {% endspaceless %}
@@ -13,7 +13,7 @@
 {# Widgets #}
 
 {% block submit_widget %}
-    {% set attr = attr|merge({class: 'btn btn-primary'}) %}
+    {% set attr = attr|merge({class: 'button [radius round]'}) %}
     {% set type = type|default('submit') %}
     {{ block('button_widget') }}
 {% endblock %}
@@ -165,7 +165,7 @@
 {% block form_errors %}
 {% spaceless %}
     {% if errors|length > 0 %}
-    {% if form.parent %}<span class="help-inline">{% else %}<div class="alert alert-error error" >{% endif %}
+    {% if form.parent %}<span class="help-inline">{% else %}<div class="alert-box error radius" >{% endif %}
         {{ parent() }}
     {% if form.parent %}</span>{% else %}</div>{% endif %}
     {% endif %}
