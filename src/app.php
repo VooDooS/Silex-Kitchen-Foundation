@@ -24,6 +24,10 @@ $app->register(new UrlGeneratorServiceProvider());
 
 $app->register(new SecurityServiceProvider(), array(
     'security.firewalls' => array(
+        'dev' => array(
+            'pattern' => '^/(_(profiler|wdt)|css|images|js)/',
+            'security' => false,
+        ),
         'admin' => array(
             'pattern' => '^/',
             'form'    => array(
@@ -83,7 +87,6 @@ if (isset($app['assetic.enabled']) && $app['assetic.enabled']) {
 
     $app['assetic.filter_manager'] = $app->share(
         $app->extend('assetic.filter_manager', function($fm, $app) {
-           // $fm->set('lessphp', new Assetic\Filter\LessphpFilter());
             $fm->set('compass', new Assetic\Filter\CompassFilter("compass"));
             $fm->set('yui_css', new Assetic\Filter\Yui\CssCompressorFilter(
                 '/usr/share/yui-compressor/yui-compressor.jar'
@@ -97,7 +100,7 @@ if (isset($app['assetic.enabled']) && $app['assetic.enabled']) {
         })
     );
 
-    $app['assetic.asset_manager'] = $app->share(
+  /*  $app['assetic.asset_manager'] = $app->share(
         $app->extend('assetic.asset_manager', function($am, $app) {
             $am->set('styles', new Assetic\Asset\AssetCache(
                 new Assetic\Asset\GlobAsset(
@@ -109,7 +112,7 @@ if (isset($app['assetic.enabled']) && $app['assetic.enabled']) {
             ));
             $am->get('styles')->setTargetPath($app['assetic.output.path_to_css']);
 
-            $am->set('scripts', new Assetic\Asset\AssetCache(
+           /* $am->set('scripts', new Assetic\Asset\AssetCache(
                 new Assetic\Asset\GlobAsset($app['assetic.input.path_to_js']),
                 new Assetic\Cache\FilesystemCache($app['assetic.path_to_cache'])
             ));
@@ -117,22 +120,30 @@ if (isset($app['assetic.enabled']) && $app['assetic.enabled']) {
 
             return $am;
         })
-    );
+    );*/
 
     $fm = $app['assetic.filter_manager'];
-    $fm->get('compass')->setImagesDir(__DIR__.'/../resources/img');
-    $fm->get('compass')->setGeneratedImagesPath(__DIR__.'/../web/img');
-    $fm->get('compass')->setJavascriptsDir(__DIR__.'/../resources/asset/js');
-    $fm->get('compass')->setFontsDir(__DIR__.'/resources/fonts');
-    $fm->get('compass')->setHttpPath(__DIR__.'/../web');
-    $fm->get('compass')->setHttpGeneratedImagesPath(__DIR__.'/../web/img');
-    $fm->get('compass')->setHttpJavascriptsPath(__DIR__.'/../web/assets/js');
+    //$fm->get('compass')->setImagesDir(__DIR__.'/../resources/img');
+    //$fm->get('compass')->setGeneratedImagesPath(__DIR__.'/../web/img');
+    //$fm->get('compass')->setJavascriptsDir(__DIR__.'/../resources/asset/js');
+    //$fm->get('compass')->setFontsDir(__DIR__.'/resources/fonts');
+    //$fm->get('compass')->setHttpPath(__DIR__.'/../web');
+    //$fm->get('compass')->setHttpGeneratedImagesPath(__DIR__.'/../web/img');
+    //$fm->get('compass')->setHttpJavascriptsPath(__DIR__.'/../web/assets/js');
     $fm->get('compass')->setScss('scss');
-    $fm->get('compass')->addLoadPath(__DIR__.'/../resources/assets/scss');
+    //$fm->get('compass')->addLoadPath(__DIR__.'/../resources/assets/scss');
 
 
 }
 
 $app->register(new Silex\Provider\DoctrineServiceProvider());
+
+/*function onKernelResponse(FilterResponseEvent $event)
+{
+    echo 'tptp';
+    $response = $event->getResponse();
+    $content = $response->getContent();
+    $response->setContent(preg_replace('#(?ix)(?>[^\S ]\s*|\s{2,})(?=(?:(?:[^<]++|<(?!/?(?:textarea|pre)\b))*+)(?:<(?>textarea|pre)\b|\z))#', ' ', $content));
+}*/
 
 return $app;
